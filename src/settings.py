@@ -25,13 +25,12 @@ class Dev(Configuration):
     # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = os.environ["SECRET_KEY"]
+    SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-gy@chd!-secert-key')
 
     # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
+    DEBUG = int(os.environ.get('DJANGO_DEBUG', 1))
 
-    ALLOWED_HOSTS = []
-
+    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(' ')
 
     # Application definition
 
@@ -75,7 +74,6 @@ class Dev(Configuration):
 
     WSGI_APPLICATION = 'src.wsgi.application'
 
-
     # Database
     # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -85,7 +83,6 @@ class Dev(Configuration):
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
 
     # Password validation
     # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -105,7 +102,6 @@ class Dev(Configuration):
         },
     ]
 
-
     # Internationalization
     # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -117,7 +113,6 @@ class Dev(Configuration):
 
     USE_TZ = True
 
-
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -128,6 +123,9 @@ class Dev(Configuration):
 
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+    #OMDB configurations
+    OMDB_KEY = os.environ.get('DJANGO_OMDB_KEY')
+    # Log configurations
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
@@ -152,4 +150,4 @@ class Dev(Configuration):
 
 
 class Prod(Dev):
-    DEBUG = os.environ.get('DEBUG', 0)
+    DEBUG = int(os.environ.get('DEBUG', 0))
