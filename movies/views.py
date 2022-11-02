@@ -6,6 +6,7 @@ from movies.omdb_integration import search_and_save, fill_movie_details
 from django.views import View
 from django.shortcuts import get_object_or_404
 
+
 class Index(View):
     ctx = {
         'title_form': SearchTitleForm(),
@@ -48,3 +49,7 @@ def search_imdb(request, imdb):
         'search': imdb,
     }
     return render(request, 'movies/movie_detail.html', ctx)
+
+
+def _404_not_found(request, exception):
+    return render(request, '404.html')

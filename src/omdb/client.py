@@ -111,6 +111,8 @@ class OmdbClient:
             logger.info(f"Fetching page {page}")
             resp = self.make_request({"s": search, "type": "movie", "page": str(page)})
             resp_body = resp.json()
+            if resp_body.get('Response', False) == 'False':
+                break
             if total_results is None:
                 total_results = int(resp_body['totalResults'])
             for movie in resp_body['Search']:

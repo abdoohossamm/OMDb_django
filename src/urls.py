@@ -22,3 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("movies.urls"))
 ]
+
+handler404 = 'movies.views._404_not_found'

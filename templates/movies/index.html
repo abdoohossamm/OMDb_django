@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <h2>
-        Search by title
-    </h2>
-    <form action="." method="POST">
-        {{ title_form.as_table }}
-        <button type="submit">
-            Search
-        </button>
-    </form>
+    <div>
+        <h2>
+            Search by title
+        </h2>
+        <form action="." method="POST">
+            {{ title_form.as_table }}
+            <button type="submit">
+                Search
+            </button>
+        </form>
 
-</div>
-<div>
-    <h2>
-        Search by Imdb ID
-    </h2>
-    <form action="." method="POST">
-        {{ imdb_form.as_table }}
-        <button type="submit">
-            Search
-        </button>
-    </form>
-</div>
+    </div>
+    <div>
+        <h2>
+            Search by Imdb ID
+        </h2>
+        <form action="." method="POST">
+            {{ imdb_form.as_table }}
+            <button type="submit">
+                Search
+            </button>
+        </form>
+    </div>
 {% endblock %}
