@@ -4,7 +4,7 @@ from movies.forms import SearchTitleForm, SearchImdbForm
 from movies.models import Movie
 from movies.omdb_integration import search_and_save, fill_movie_details
 from django.views import View
-
+from django.shortcuts import get_object_or_404
 
 class Index(View):
     ctx = {
@@ -40,7 +40,7 @@ def search_title(request, title):
 
 def search_imdb(request, imdb):
     search_str = re.sub(r"\s+", " ", imdb.lower()).strip()
-    movie = Movie.objects.get(imdb_id=search_str)
+    movie = get_object_or_404(Movie, imdb_id=search_str)
     fill_movie_details(movie)
 
     ctx = {
