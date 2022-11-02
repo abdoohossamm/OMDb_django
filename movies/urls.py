@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from movies import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include("movies.urls"))
+    path('', views.Index.as_view(), name='index'),
+    path('search_title/<str:title>', views.search_title, name='search_title'),
+    path('search_imdb/<str:imdb>', views.search_imdb, name='search_imdb'),
 ]
