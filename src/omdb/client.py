@@ -1,5 +1,5 @@
 import logging
-from typing import (Dict, AnyStr, List)
+from typing import (Dict, AnyStr, List, Optional)
 import requests
 
 logger = logging.getLogger(__name__)
@@ -27,7 +27,8 @@ class OmdbMovie:
             raise AttributeError(
                 f"{key} is not in data, please make sure this is a detail response."
             )
-
+        if self.data[key].lower() == "n/a":
+            self.data[key] = None
     @property
     def imdb_id(self) -> AnyStr:
         return self.data["imdbID"]
@@ -41,8 +42,11 @@ class OmdbMovie:
         return int(self.data["Year"])
 
     @property
-    def runtime_minutes(self) -> int:
+    def runtime_minutes(self):
         self.check_for_detail_data_key("Runtime")
+
+        if self.data["Runtime"] is None:
+            return None
 
         rt, units = self.data["Runtime"].split(" ")
 
