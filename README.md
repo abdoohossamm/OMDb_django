@@ -3,10 +3,8 @@ OMDb_django is an open source application to interact with OMDB API.
 ### Prerequisites:
 - GIT (latest)
 - Python ≥ 3.8
-- Docker Desktop or (Docker Engine and Docker Compose) if run using docker
 - Any code editor or IDE (PyCharm recommended for Python and Django)
 - Any database client (optional)
-- Redis (if run locally)
 ## Installation
 
 Go to  [OMDb API](http://www.omdbapi.com/apikey.aspx) to get an API Key
