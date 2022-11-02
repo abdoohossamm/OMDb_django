@@ -5,6 +5,7 @@ from django.utils.timezone import now
 from movies.models import Genre, SearchTerm, Movie
 from src.omdb.django_client import get_client_from_settings
 from src.omdb.client import OmdbClient, OmdbMovie
+from django.db.models import Model
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,7 @@ def get_or_create_genres(genre_names):
         yield genre
 
 
-def fill_movie_details(movie):
+def fill_movie_details(movie: Model):
     """
     Fetch a movie's full details from OMDb. Then, save it to the DB. If the movie already has a `full_record` this does
     nothing, so it's safe to call with any `Movie`.
