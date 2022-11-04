@@ -25,12 +25,12 @@ class Dev(Configuration):
     # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-gy@chd!-secert-key')
+    SECRET_KEY = 'django-insecure-gy@chd!-n)@wasv445exdasdw$2y^e6aq0oz9b0!^w!bfwtw'
 
     # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = int(os.environ.get('DJANGO_DEBUG', 1))
+    DEBUG = int(os.environ.get('MAIN_DEBUG', 1))
 
-    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(' ')
+    ALLOWED_HOSTS = os.environ.get('MAIN_ALLOWED_HOSTS', '').split(' ')
 
     # Application definition
 
@@ -125,7 +125,7 @@ class Dev(Configuration):
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
     # OMDB configurations
-    OMDB_KEY = os.environ.get('DJANGO_OMDB_KEY')
+    OMDB_KEY = os.environ.get('MAIN_OMDB_KEY')
     # Log configurations
     LOGGING = {
         "version": 1,
@@ -151,4 +151,17 @@ class Dev(Configuration):
 
 
 class Prod(Dev):
-    DEBUG = int(os.environ.get('DEBUG', 0))
+    DEBUG = int(os.environ.get('MAIN_DEBUG', 0))
+    SECRET_KEY = os.environ.get('MAIN_SECRET_KEY')
+    ALLOWED_HOSTS = os.environ.get('MAIN_ALLOWED_HOSTS', '*').split()
+    ADMINS = [("Abdoo", "abdoohossamm@outlook.com"), ("abdoohossamm", "kmabdo28@gmail.com")]
+    DATABASES = {
+        'default': {
+            'ENGINE': f"django.db.backends.{os.environ.get('MAIN_DB_CONNECTION')}",
+            'NAME': os.environ.get('MAIN_DB_DATABASE'),
+            'USER': os.environ.get('MAIN_DB_USERNAME'),
+            'PASSWORD': os.environ.get('MAIN_DB_PASSWORD'),
+            'HOST': os.environ.get('MAIN_DB_HOST'),
+            'PORT': os.environ.get('MAIN_DB_PORT')
+        }
+    }
