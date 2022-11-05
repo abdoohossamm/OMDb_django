@@ -28,7 +28,7 @@ class Dev(Configuration):
     SECRET_KEY = 'django-insecure-gy@chd!-n)@wasv445exdasdw$2y^e6aq0oz9b0!^w!bfwtw'
 
     # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = int(os.environ.get('MAIN_DEBUG', 1))
+    DEBUG = True
 
     ALLOWED_HOSTS = os.environ.get('MAIN_ALLOWED_HOSTS', '').split(' ')
 
@@ -153,7 +153,7 @@ class Dev(Configuration):
 class Prod(Dev):
     DEBUG = int(os.environ.get('MAIN_DEBUG', 0))
     SECRET_KEY = os.environ.get('MAIN_SECRET_KEY')
-    ALLOWED_HOSTS = os.environ.get('MAIN_ALLOWED_HOSTS', '*').split()
+    ALLOWED_HOSTS = os.environ.get('MAIN_ALLOWED_HOSTS', '').split()
     ADMINS = [("Abdoo", "abdoohossamm@outlook.com"), ("abdoohossamm", "kmabdo28@gmail.com")]
     DATABASES = {
         'default': {

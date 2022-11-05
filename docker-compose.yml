@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  omdb_app:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - omdb_db
+      - redis-master
+
+  omdb_db:
+    image: 'postgres:14.1-alpine'
+    restart: always
+    environment:
+      POSTGRES_USER: ${MAIN_DB_USER}
+      POSTGRES_PASSWORD: ${MAIN_DB_PASSWORD}
+      POSTGRES_DB: ${MAIN_DB_DATABASE}
+      PGDATA: /var/lib/postgresql/omdb/data
+    volumes:
+      - omdb_db:/var/lib/postgresql/omdb/data
+    ports:
+      - "${MAIN_STREAMING_DB_PORT:-54321}:${MAIN_DB_PORT}"
+
+  redis-master:
+    image: 'bitnami/redis:latest'
+    ports:
+      - '6379'
+    environment:
+      - REDIS_REPLICATION_MODE=master
+      - REDIS_PASSWORD=my_master_password
+    volumes:
+      - redis:/bitnami/redis/data
+volumes:
+  redis:
+  omdb_db:

@@ -3,11 +3,15 @@
 import os
 import sys
 
+import django.core.exceptions
+
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.settings')
-    os.environ.setdefault('DJANGO_CONFIGURATION', 'Dev')
+
+    if not os.environ.get('DJANGO_CONFIGURATION'):
+        os.environ.setdefault('DJANGO_CONFIGURATION', 'Dev')
     try:
         from configurations.management import execute_from_command_line
     except ImportError as exc:
