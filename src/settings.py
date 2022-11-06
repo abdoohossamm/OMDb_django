@@ -41,7 +41,8 @@ class Dev(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-        'movies'
+        'movies',
+        'django_celery_results',
     ]
 
     MIDDLEWARE = [
@@ -148,6 +149,8 @@ class Dev(Configuration):
             "level": "DEBUG",
         },
     }
+    CELERY_RESULT_BACKEND = "django-db"
+    CELERY_BROKER_URL = "redis://localhost:6379/0"
 
 
 class Prod(Dev):
@@ -165,3 +168,5 @@ class Prod(Dev):
             'PORT': os.environ.get('MAIN_DB_PORT')
         }
     }
+    CELERY_RESULT_BACKEND = "django-db"
+    CELERY_BROKER_URL = f"redis://{os.environ.get('MAIN_REDIS_HOST')}:{os.environ.get('MAIN_REDIS_PORT')}/0"
