@@ -149,8 +149,14 @@ class Dev(Configuration):
             "level": "DEBUG",
         },
     }
+
+    # Celery settings
     CELERY_RESULT_BACKEND = "django-db"
     CELERY_BROKER_URL = "redis://localhost:6379/0"
+
+    # Email settings
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    ADMINS = [("Abdoo", "abdoohossamm@outlook.com")]
 
 
 class Prod(Dev):
