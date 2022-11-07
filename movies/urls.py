@@ -22,4 +22,9 @@ urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('search_title/<str:title>', views.search_title, name='search_title'),
     path('search_imdb/<str:imdb>', views.search_imdb, name='search_imdb'),
+    path("search/", views.search, name="search"),
+    path(
+        "search-wait/<uuid:result_uuid>/", views.search_wait, name="search_wait"
+    ),
+    path("search-results/", views.search_results, name="search_results")
 ]
